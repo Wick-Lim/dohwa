@@ -1,8 +1,8 @@
-import { Alignment, Button, Divider, Menu, MenuItem, Navbar, Popover, Tab, TabId, TabPanel, Tabs, Tree } from "@blueprintjs/core";
+import { Alignment, Button, Divider, Menu, MenuDivider, MenuItem, Navbar, Popover, Tab, TabId, TabPanel, Tabs, Tree } from "@blueprintjs/core";
 import { useId, useState } from "react";
+import Column from "./components/Column";
 import Renderer from "./components/Renderer";
 import Row from "./components/Row";
-import Column from "./components/Column";
 
 export default function App() {
   const TABS_PARENT_ID = useId();
@@ -45,37 +45,77 @@ export default function App() {
           <Divider />
           <TabPanel
             id="Hierachy"
-            className="my-0"
+            className="flex flex-col grow my-0"
             selectedTabId={selectedTabId}
             parentId={TABS_PARENT_ID}
             panel={(
-              <Tree contents={[
-                {
-                  id: 0,
-                  hasCaret: true,
-                  icon: "cube",
-                  label: "Folder 0",
-                  isExpanded: true,
-                  childNodes: [
-                    {
-                      id: 1,
-                      icon: "cube",
-                      label: "Item 0",
-                    },
-                    {
-                      id: 2,
-                      icon: "cube",
-                      label: "Item 1",
-                    },
-                  ],
-                },
-              ]} />
+              <Column className="grow">
+                <Column className="relative h-[200px]">
+                  <Column className="absolute w-full h-full overflow-y-scroll">
+                    <Row className="sticky top-0 bg-white p-1">
+                      <MenuDivider title="Frames" />
+                    </Row>
+                    <Menu>
+                      <MenuItem icon="document" text="New Frame" />
+                      <MenuItem icon="document" text="New Frame" />
+                      <MenuItem icon="document" text="New Frame" />
+                      <MenuItem icon="document" text="New Frame" />
+                      <MenuItem icon="document" text="New Frame" />
+                      <MenuItem icon="document" text="New Frame" />
+                      <MenuItem icon="document" text="New Frame" />
+                      <MenuItem icon="document" text="New Frame" />
+                      <MenuItem icon="document" text="New Frame" />
+                    </Menu>
+                  </Column>
+                </Column>
+                <Divider />
+                <Column className="relative grow">
+                  <Column className="absolute w-full h-full overflow-y-scroll">
+                    <Row className="sticky top-0 bg-white p-1">
+                      <MenuDivider title="Hierachy" />
+                    </Row>
+                    <Tree contents={[
+                      {
+                        id: 0,
+                        icon: "alignment-vertical-center",
+                        label: "Column",
+                        isExpanded: true,
+                        childNodes: [
+                          {
+                            id: 1,
+                            icon: "alignment-horizontal-center",
+                            label: "Item 0",
+                          },
+                          {
+                            id: 2,
+                            icon: "alignment-horizontal-center",
+                            label: "Item 1",
+                            isExpanded: true,
+                            childNodes: [
+                              {
+                                id: 3,
+                                icon: "alignment-horizontal-center",
+                                label: "Item 2",
+                              },
+                              {
+                                id: 4,
+                                icon: "alignment-horizontal-center",
+                                label: "Item 3",
+                              },
+                            ],
+                          },
+                        ],
+                      },
+                    ]} />
+                  </Column>
+                </Column>
+              </Column>
             )}
           />
         </Column>
         <Column className="relative grow">
           <Column className="absolute w-full h-full">
-            <Renderer data={{}} onDataChange={() => {}} />
+            <Renderer data={{}} onDataChange={() => { }} />
           </Column>
         </Column>
       </Row>
