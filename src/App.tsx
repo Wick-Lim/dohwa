@@ -1,6 +1,8 @@
 import { Alignment, Button, Divider, Menu, MenuItem, Navbar, Popover, Tab, TabId, TabPanel, Tabs, Tree } from "@blueprintjs/core";
 import { useId, useState } from "react";
 import Renderer from "./components/Renderer";
+import Row from "./components/Row";
+import Column from "./components/Column";
 
 export default function App() {
   const TABS_PARENT_ID = useId();
@@ -35,8 +37,8 @@ export default function App() {
         </Navbar.Group>
       </Navbar>
 
-      <div className="grow flex flex-row">
-        <div className="flex flex-col w-[250px]">
+      <Row className="grow">
+        <Column className="w-[250px]">
           <Tabs className="flex flex-row px-4" id={TABS_PARENT_ID} onChange={(tabId) => setSelectedTabId(tabId)} selectedTabId={selectedTabId}>
             <Tab id="Hierachy" title="Hierachy" icon="layout-hierarchy" />
           </Tabs>
@@ -51,18 +53,18 @@ export default function App() {
                 {
                   id: 0,
                   hasCaret: true,
-                  icon: "folder-close",
+                  icon: "cube",
                   label: "Folder 0",
                   isExpanded: true,
                   childNodes: [
                     {
                       id: 1,
-                      icon: "document",
+                      icon: "cube",
                       label: "Item 0",
                     },
                     {
                       id: 2,
-                      icon: "document",
+                      icon: "cube",
                       label: "Item 1",
                     },
                   ],
@@ -70,13 +72,13 @@ export default function App() {
               ]} />
             )}
           />
-        </div>
-        <div className="relative grow">
-          <div className="absolute w-full h-full">
+        </Column>
+        <Column className="relative grow">
+          <Column className="absolute w-full h-full">
             <Renderer data={{}} onDataChange={() => {}} />
-          </div>
-        </div>
-      </div>
+          </Column>
+        </Column>
+      </Row>
     </>
   );
 }
