@@ -1,0 +1,31 @@
+{
+  "name": "dohwa",
+  "private": true,
+  "version": "0.1.0",
+  "type": "module",
+  "scripts": {
+    "dev": "vite",
+    "build": "tsc && vite build",
+    "preview": "vite preview",
+    "tauri": "tauri"
+  },
+  "dependencies": {
+    "@blueprintjs/core": "^5.13.0",
+    "@pixi/react": "7",
+    "@tauri-apps/api": "^1",
+    "pixi.js": "7",
+    "react": "latest",
+    "react-dom": "latest"
+  },
+  "devDependencies": {
+    "@tauri-apps/cli": "^1",
+    "@types/react": "latest",
+    "@types/react-dom": "latest",
+    "@vitejs/plugin-react": "latest",
+    "autoprefixer": "^10.4.20",
+    "postcss": "^8.4.47",
+    "tailwindcss": "^3.4.12",
+    "typescript": "latest",
+    "vite": "latest"
+  }
+}
