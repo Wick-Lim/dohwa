@@ -21,6 +21,10 @@ ReactDOM.createRoot(document.getElementById('root')!).render(
           height: 100%;
           overflow: hidden;
         }
+
+        button {
+          outline: none;
+        }
       `}</style>
       <App />
     </BlueprintProvider>

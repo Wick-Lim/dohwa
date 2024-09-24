@@ -1,78 +1,89 @@
-import { Alignment, Button, ButtonGroup, Divider, Menu, MenuDivider, MenuItem, Navbar, Popover, Tab, TabId, TabPanel, Tabs, Tag, Tree, TreeNodeInfo } from "@blueprintjs/core";
+import { Alignment, Button, ButtonGroup, Divider, Menu, MenuDivider, MenuItem, Navbar, Popover, Tab, TabId, TabPanel, Tabs, Tree, TreeNodeInfo } from "@blueprintjs/core";
 import { useId, useState } from "react";
 import Column from "./components/Column";
 import Renderer from "./components/Renderer";
 import Row from "./components/Row";
 
+const dummy: TreeNodeInfo[] = [
+  {
+    id: 0,
+    icon: "mobile-phone",
+    label: "Mobile Page 1",
+    isExpanded: true,
+    childNodes: [
+      {
+        id: 1,
+        icon: "alignment-horizontal-center",
+        label: "Item 0",
+      },
+      {
+        id: 2,
+        icon: "alignment-horizontal-center",
+        label: "Item 1",
+        isExpanded: true,
+        childNodes: [
+          {
+            id: 3,
+            icon: "alignment-horizontal-center",
+            label: "Item 2",
+          },
+          {
+            id: 4,
+            icon: "alignment-horizontal-center",
+            label: "Item 3",
+          },
+        ],
+      },
+    ],
+  },
+  {
+    id: 5,
+    icon: "mobile-phone",
+    label: "Mobile Page 1",
+    isExpanded: true,
+    childNodes: [
+      {
+        id: 6,
+        icon: "alignment-horizontal-center",
+        label: "Item 0",
+      },
+      {
+        id: 7,
+        icon: "alignment-horizontal-center",
+        label: "Item 1",
+        isExpanded: true,
+        childNodes: [
+          {
+            id: 8,
+            icon: "alignment-horizontal-center",
+            label: "Item 2",
+          },
+          {
+            id: 9,
+            icon: "alignment-horizontal-center",
+            label: "Item 3",
+          },
+        ],
+      },
+    ],
+  },
+];
+
+const traverse = (nodes: TreeNodeInfo[]) => nodes.reduce<TreeNodeInfo[]>((acc, cur) => {
+  acc.push(cur);
+
+  if (cur.childNodes) {
+    acc.push(...traverse(cur.childNodes));
+  }
+
+  return acc;
+}, []);
+
 export default function App() {
   const TABS_PARENT_ID = useId();
 
   const [selectedTabId, setSelectedTabId] = useState<TabId>("Hierachy");
-  const [selectedItem, setSelectedItem] = useState<TreeNodeInfo | null>(null);
-  const [contents, setContents] = useState<TreeNodeInfo[]>([
-    {
-      id: 0,
-      icon: "mobile-phone",
-      label: "Mobile Page 1",
-      isExpanded: true,
-      childNodes: [
-        {
-          id: 1,
-          icon: "alignment-horizontal-center",
-          label: "Item 0",
-        },
-        {
-          id: 2,
-          icon: "alignment-horizontal-center",
-          label: "Item 1",
-          isExpanded: true,
-          childNodes: [
-            {
-              id: 3,
-              icon: "alignment-horizontal-center",
-              label: "Item 2",
-            },
-            {
-              id: 4,
-              icon: "alignment-horizontal-center",
-              label: "Item 3",
-            },
-          ],
-        },
-      ],
-    },
-    {
-      id: 5,
-      icon: "mobile-phone",
-      label: "Mobile Page 1",
-      isExpanded: true,
-      childNodes: [
-        {
-          id: 6,
-          icon: "alignment-horizontal-center",
-          label: "Item 0",
-        },
-        {
-          id: 7,
-          icon: "alignment-horizontal-center",
-          label: "Item 1",
-          isExpanded: true,
-          childNodes: [
-            {
-              id: 8,
-              icon: "alignment-horizontal-center",
-              label: "Item 2",
-            },
-            {
-              id: 9,
-              icon: "alignment-horizontal-center",
-              label: "Item 3",
-            },
-          ],
-        },
-      ],
-    },
-  ]);
+  const [contents, setContents] = useState<TreeNodeInfo[]>(dummy);
 
   return (
     <>
@@ -137,31 +148,38 @@ export default function App() {
                     </Row>
                     <Tree
                       contents={contents}
-                      onNodeContextMenu={(_, __, e) => {
-                        e.preventDefault();
-                      }}
+                      onNodeContextMenu={(_, __, e) => e.preventDefault()}
                       onNodeClick={(_, path) => {
                         const _contents = JSON.parse(JSON.stringify(contents));
+                        const _array: TreeNodeInfo[] = traverse(_contents);
+
+                        console.log(_array);
+
+                        _array.forEach((node) => node.isSelected = false);
 
                         const node = path.reduce((acc, cur, index) => {
                           if (index === 0) {
                             return acc[cur];
                           } else {
-                            return  acc.childNodes ? acc.childNodes[cur] : acc;
+                            return acc.childNodes ? acc.childNodes[cur] : acc;
                           }
                         }, _contents);
 
                         node.isSelected = !node.isSelected;
+
                         setContents(_contents);
                       }}
                     />
                   </Column>
                 </Column>
                 <Divider />
+                <Row className="sticky top-0 bg-white py-1 pl-1 pr-4 items-center">
+                  <MenuDivider title="Tool" />
+                </Row>
                 <ButtonGroup>
                   <Button icon="alignment-vertical-center" minimal>1</Button>
                   <Button icon="alignment-horizontal-center" minimal>2</Button>
-                  <Button icon="shorten-text" minimal>3</Button>
+                  <Button icon="paragraph" minimal>3</Button>
                   <Button icon="text-highlight" minimal>4</Button>
                   <Button icon="widget-button" minimal>5</Button>
                 </ButtonGroup>
