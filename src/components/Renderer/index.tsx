@@ -1,11 +1,11 @@
-import { Colors, ResizeSensor, TreeNodeInfo } from "@blueprintjs/core";
+import { Colors, ResizeSensor } from "@blueprintjs/core";
 import { Container, Sprite, Stage } from "@pixi/react";
 import { Texture } from "pixi.js";
 import { FC, useState } from "react";
 import Viewport from "./viewport";
 
 interface RendererProps {
-    data: TreeNodeInfo[];
+    data: any[];
     onDataChange: (data: any) => Promise<void> | void;
 }
 
