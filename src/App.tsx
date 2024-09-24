@@ -11,8 +11,8 @@ export default function App() {
   const [contents] = useState<TreeNodeInfo[]>([
     {
       id: 0,
-      icon: "alignment-vertical-center",
-      label: "Column",
+      icon: "mobile-phone",
+      label: "Mobile Page 1",
       isExpanded: true,
       childNodes: [
         {
@@ -33,6 +33,37 @@ export default function App() {
             },
             {
               id: 4,
+              icon: "alignment-horizontal-center",
+              label: "Item 3",
+            },
+          ],
+        },
+      ],
+    },
+    {
+      id: 5,
+      icon: "mobile-phone",
+      label: "Mobile Page 1",
+      isExpanded: true,
+      childNodes: [
+        {
+          id: 6,
+          icon: "alignment-horizontal-center",
+          label: "Item 0",
+        },
+        {
+          id: 7,
+          icon: "alignment-horizontal-center",
+          label: "Item 1",
+          isExpanded: true,
+          childNodes: [
+            {
+              id: 8,
+              icon: "alignment-horizontal-center",
+              label: "Item 2",
+            },
+            {
+              id: 9,
               icon: "alignment-horizontal-center",
               label: "Item 3",
             },
@@ -73,10 +104,9 @@ export default function App() {
 
       <Row className="grow">
         <Column className="w-[250px]">
-          <Tabs className="flex flex-row px-4" id={TABS_PARENT_ID} onChange={(tabId) => setSelectedTabId(tabId)} selectedTabId={selectedTabId}>
+          <Tabs className="flex flex-row p-2" id={TABS_PARENT_ID} onChange={(tabId) => setSelectedTabId(tabId)} selectedTabId={selectedTabId}>
             <Tab id="Hierachy" title="Hierachy" icon="layout-hierarchy" />
           </Tabs>
-          <Divider />
           <TabPanel
             id="Hierachy"
             className="flex flex-col grow my-0"
@@ -87,20 +117,20 @@ export default function App() {
                 <Column className="relative h-[200px]">
                   <Column className="absolute w-full h-full overflow-y-scroll">
                     <Row className="sticky top-0 bg-white py-1 pl-1 pr-4 items-center">
-                      <MenuDivider title="Frames" />
+                      <MenuDivider title="Pages" />
                       <Row className="grow" />
                       <Button icon="plus" minimal />
                     </Row>
                     <Menu>
-                      <MenuItem icon="document" text="New Frame" />
-                      <MenuItem icon="document" text="New Frame" />
-                      <MenuItem icon="document" text="New Frame" />
-                      <MenuItem icon="document" text="New Frame" />
-                      <MenuItem icon="document" text="New Frame" />
-                      <MenuItem icon="document" text="New Frame" />
-                      <MenuItem icon="document" text="New Frame" />
-                      <MenuItem icon="document" text="New Frame" />
-                      <MenuItem icon="document" text="New Frame" />
+                      <MenuItem icon="document" text="New Page" active />
+                      <MenuItem icon="document" text="New Page" />
+                      <MenuItem icon="document" text="New Page" />
+                      <MenuItem icon="document" text="New Page" />
+                      <MenuItem icon="document" text="New Page" />
+                      <MenuItem icon="document" text="New Page" />
+                      <MenuItem icon="document" text="New Page" />
+                      <MenuItem icon="document" text="New Page" />
+                      <MenuItem icon="document" text="New Page" />
                     </Menu>
                   </Column>
                 </Column>
@@ -126,7 +156,7 @@ export default function App() {
         </Column>
         <Column className="relative grow">
           <Column className="absolute w-full h-full">
-            <Renderer data={{}} onDataChange={() => { }} />
+            <Renderer data={contents} onDataChange={() => { }} />
           </Column>
         </Column>
       </Row>

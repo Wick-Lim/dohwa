@@ -1,21 +1,22 @@
 import { PixiComponent, withPixiApp } from "@pixi/react";
 import { Viewport as PixiViewport } from "pixi-viewport";
-import { createElement } from "react";
+import { Application } from "pixi.js";
+import { createElement, PropsWithChildren } from "react";
 
 const Viewport = PixiComponent("Viewport", {
-    create: (props) => {
-        const viewport = new PixiViewport({
-            screenWidth: window.innerWidth,
-            screenHeight: window.innerHeight,
-            worldWidth: 1000,
-            worldHeight: 1000,
-            events: props.app.renderer.events
-        });
-
-        viewport.drag().pinch().wheel();
-
-        return viewport;
+    create: (props) => new PixiViewport({
+        screenWidth: props.size.width,
+        screenHeight: props.size.height,
+        worldWidth: 10000,
+        worldHeight: 10000,
+        events: props.app.renderer.events
+    }).drag().pinch().wheel().fit(true, props.size.width, props.size.height * 1.2),
+    applyProps: (instance, _, props) => {
+        instance.resize(props.size.width, props.size.height, 10000, 10000);
     },
 });
 
-export default withPixiApp((props) => createElement(Viewport, props));
+export default withPixiApp<PropsWithChildren<{
+    app: Application;
+    size: DOMRectReadOnly;
+}>>((props) => createElement(Viewport, props));
