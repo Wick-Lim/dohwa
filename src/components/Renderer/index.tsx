@@ -1,7 +1,8 @@
-import { ResizeSensor } from "@blueprintjs/core";
+import { Colors, ResizeSensor } from "@blueprintjs/core";
 import { Container, Sprite, Stage } from "@pixi/react";
 import { Texture } from "pixi.js";
 import { FC, useState } from "react";
+import Viewport from "./viewport";
 
 interface RendererProps {
     data: any;
@@ -11,15 +12,29 @@ interface RendererProps {
 const Renderer: FC<RendererProps> = ({ data, onDataChange }) => {
     const [size, setSize] = useState<DOMRectReadOnly>();
 
-    console.log(data, onDataChange);
+    console.log(size, data, onDataChange);
 
     return (
         <ResizeSensor onResize={([entry]) => setSize(entry.contentRect)}>
             <div style={{ width: "100%", height: "100%", border: '0.5px solid black' }}>
                 {size && (
-                    <Stage width={size?.width} height={size?.height} options={{ background: 0x1099bb }}>
-                        <Container>
-                            <Sprite texture={Texture.WHITE} width={200} height={210} />
+                    <Stage width={size.width} height={size.height} options={{ background: Colors.LIGHT_GRAY1 }}>
+                        <Viewport>
+                            <Container x={20} y={20}>
+                                <Sprite texture={Texture.WHITE} width={414} height={896} />
+                            </Container>
+                            <Container x={454} y={20}>
+                                <Sprite texture={Texture.WHITE} width={414} height={896} />
+                            </Container>
+                        </Viewport>
+
+                        <Container x={size.width - 100} y={size.height - 100} scale={0.1}>
+                            <Container x={20} y={20}>
+                                <Sprite texture={Texture.WHITE} width={414} height={896} />
+                            </Container>
+                            <Container x={454} y={20}>
+                                <Sprite texture={Texture.WHITE} width={414} height={896} />
+                            </Container>
                         </Container>
                     </Stage>
                 )}

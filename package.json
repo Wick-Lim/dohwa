@@ -13,6 +13,7 @@
     "@blueprintjs/core": "^5.13.0",
     "@pixi/react": "7",
     "@tauri-apps/api": "^1",
+    "pixi-viewport": "^5.0.3",
     "pixi.js": "7",
     "react": "latest",
     "react-dom": "latest"
