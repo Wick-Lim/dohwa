@@ -10,7 +10,7 @@ const Viewport = PixiComponent("Viewport", {
         worldWidth: 10000,
         worldHeight: 10000,
         events: props.app.renderer.events
-    }).drag().pinch().wheel().fit(true, props.size.width, props.size.height * 1.2),
+    }).drag().pinch().wheel().fit(true, props.size.width, props.size.height * 1.5),
     applyProps: (instance, _, props) => {
         instance.resize(props.size.width, props.size.height, 10000, 10000);
     },

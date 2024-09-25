@@ -25,7 +25,7 @@ const Renderer: FC<RendererProps> = ({ data, onDataChange }) => {
                     <Stage width={size.width} height={size.height} options={{ background: Colors.LIGHT_GRAY1 }}>
                         <Viewport size={size}>
                             {data.map((_, index) => (
-                                <Container key={index} x={(50 + 414) * index} y={20}>
+                                <Container key={index} x={(50 + 414) * index}>
                                     <Sprite texture={Texture.WHITE} width={414} height={896} />
                                 </Container>
                             ))}
